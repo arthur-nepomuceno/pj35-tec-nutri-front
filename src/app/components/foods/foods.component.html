@@ -1,16 +1,25 @@
 <div>
-    <label for="food">Food: </label>
-    <input type="text" name="food" id="food" placeholder="type what you ate" #foodName>
+    <label for="food">Alimento: </label>
+    <input type="text" name="food" id="food" placeholder="digite o que você comeu" #foodName>
     
-    <label for="quantity">Quantity(g): </label>
-    <input type="number" name="quantity" id="quantity" placeholder="how many grams?">
+    <label for="quantity">Quantidade(g): </label>
+    <input type="number" name="quantity" id="quantity" placeholder="quantos gramas?">
 
-    <h3>Available options of food</h3>
+    <h3>Encontre seu alimento</h3>
     <ul>
         <li *ngFor="let food of tacoTable">
             <button type="button" (click)="onSelect(food)">
                 <span>{{food.descricao}}</span>
             </button>
+            <div *ngIf="selectedFood && selectedFood.descricao == food.descricao">
+                <ul>
+                    <li>nome: {{selectedFood.descricao}}</li>
+                    <li>calorias: {{(selectedFood.energiaKcal)}}</li>
+                    <li>proteínas: {{selectedFood.proteinas}}</li>
+                    <li>gorduras: {{selectedFood.lipideos}}</li>
+                    <li>carboidratos: {{selectedFood.carboidratos}}</li>
+                </ul>
+            </div>
         </li>
     </ul>
 </div>
