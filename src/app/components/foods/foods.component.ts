@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TACO } from 'src/app/database/taco';
-import { Meal } from 'src/app/interfaces/meal';
-import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Food } from 'src/app/interfaces/food';
+
 
 
 @Component({
@@ -12,18 +11,9 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 })
 export class FoodsComponent {
   tacoTable = TACO;
-  private searchTerms = new Subject<string>();
-  searchResult = [];  
+  selectedFood?: Food;
 
-  search(term: string){
-    this.searchTerms.next(term);
+  onSelect(element: Food){
+    this.selectedFood = element;
   }
-
-  // ngOnInit(): void {
-  //   this.searchResult = this.searchTerms.pipe(
-  //     debounceTime(300),
-  //     distinctUntilChanged(),
-  //     switchMap((term: string) => this.tacoTable.filter(element => element.descricao.includes(term)))
-  //   )
-  // }
 }

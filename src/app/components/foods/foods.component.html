@@ -1,7 +1,16 @@
 <div>
     <label for="food">Food: </label>
-    <input type="text" name="food" id="food" placeholder="type what you ate" #foodName (input)="search(foodName.value)">
+    <input type="text" name="food" id="food" placeholder="type what you ate" #foodName>
     
     <label for="quantity">Quantity(g): </label>
     <input type="number" name="quantity" id="quantity" placeholder="how many grams?">
+
+    <h3>Available options of food</h3>
+    <ul>
+        <li *ngFor="let food of tacoTable">
+            <button type="button" (click)="onSelect(food)">
+                <span>{{food.descricao}}</span>
+            </button>
+        </li>
+    </ul>
 </div>
