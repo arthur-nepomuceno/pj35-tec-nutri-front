@@ -1,42 +1,58 @@
 <div>
     <!--ESPAÇO PARA INSERÇÃO DE DADOS-->
     <div>
+        <label for="category">Categoria: </label>
+        <select name="category" id="category" #mealName>
+            <option value="breakfast">dejejum</option>
+            <option value="lunch">almoço</option>
+            <option value="dinner">jantar</option>
+            <option value="snack">lanche</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="date">Data: </label>
+        <input type="date" name="date" id="date" #mealDate>
+    </div>
+    
+    <div>
         <label for="food">Alimento: </label>
         
         <input type="text" name="food" id="food" placeholder="digite o que você comeu" #foodName (input)="onSearch(foodName.value)">
-        
+    </div>
+    
+    <div>
+        <label for="quantity">Quantidade(g): </label>
+        <input type="number" name="quantity" id="quantity" placeholder="quantos gramas?" #foodQuantity>
+    </div>
+
+    <button (click)="onAdd(foodName.value, foodQuantity.value)">
+        Adicionar
+    </button>
+
+    <div *ngIf="chosenFoods.length > 0">
+        <table>
+            <tr>
+                <th>Descricao</th>
+                <th>Quantidade</th>
+            </tr>
+            <tr *ngFor="let food of chosenFoods">
+                <td>{{food.descricao}}</td>
+                <td>{{food.quantidade}}</td>
+            </tr>
+        </table>
+        <button>
+            Salvar
+        </button>
+    </div>
+
+    <div>
         <ul style="list-style-type: none;">
             <li *ngFor="let food of foodMenu$ | async">
-                <button>
+                <button (click)="foodName.value = food.descricao">
                     {{food.descricao}}
                 </button>
             </li>
         </ul>
     </div>
-    
-    <div>
-        <label for="quantity">Quantidade(g): </label>
-        <input type="number" name="quantity" id="quantity" placeholder="quantos gramas?">
-    </div>
-
-    <!--LISTA GERADA A PARTIR DA TABELA TACO-->
-    <h3>Encontre seu alimento</h3>
-    <h5>quantidades por porção de 100g</h5>
-    <ul>
-        <li *ngFor="let food of tacoTable">
-            
-            <button type="button" (click)="onSelect(food)">
-                <span>{{food.descricao}}</span>
-            </button>
-
-            <div *ngIf="selectedFood && selectedFood.descricao == food.descricao">
-                <ul>
-                    <li>calorias: {{selectedFood.energiaKcal | number:'.1-1'}}</li>
-                    <li>proteínas: {{selectedFood.proteinas | number:'.1-1'}}</li>
-                    <li>gorduras: {{selectedFood.lipideos | number:'.1-1'}}</li>
-                    <li>carboidratos: {{selectedFood.carboidratos | number:'.1-1'}}</li>
-                </ul>
-            </div>
-        </li>
-    </ul>
 </div>

@@ -19,3 +19,8 @@ export interface Food {
     zinco?: number | string;
 }
 
+export interface ChosenFood {
+    descricao: string;
+    quantidade: number;
+}
+

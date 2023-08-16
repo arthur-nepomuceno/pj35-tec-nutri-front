@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Food } from 'src/app/interfaces/food.interface';
+import { Food, ChosenFood } from 'src/app/interfaces/food.interface';
 import { FoodService } from 'src/app/services/food-services/food.service';
 import { Observable, Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 
@@ -13,10 +13,12 @@ import { Observable, Subject, debounceTime, distinctUntilChanged, switchMap } fr
 export class FoodsComponent implements OnInit {
   //ATRIBUTOS
   tacoTable: Food[] = [];
-
+  
+  foodMenu$!: Observable<Food[]>;
+  
   selectedFood?: Food;
 
-  foodMenu$!: Observable<Food[]>;
+  chosenFoods: ChosenFood[]  = [];
   
   private searchTerms = new Subject<string>();
 
@@ -42,5 +44,20 @@ export class FoodsComponent implements OnInit {
 
   onSearch(term: string): void{
     this.searchTerms.next(term);
+  }
+
+  onAdd(descricao: string, quantidade: string): void{
+    if(!descricao.trim() || !quantidade.trim()){
+      return;
+    }
+
+    this.chosenFoods.push(
+      {
+        descricao: descricao,
+        quantidade: Number(quantidade)
+      }
+    )
+
+    console.log(this.chosenFoods)
   }
 }
